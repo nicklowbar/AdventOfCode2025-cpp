@@ -6,7 +6,7 @@
 unsigned long long solution1(std::ifstream &input);
 unsigned long long solution2(std::ifstream &input);
 
-int main(int argc, char **argv) {
+int main(int argc, char *argv[]) {
   shared_main(argc, argv, solution1, solution2);
 }
 
