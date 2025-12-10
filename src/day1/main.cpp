@@ -122,9 +122,19 @@ unsigned long long solution1(std::ifstream &input) {
                              m[2].str())
               << std::endl;
     */
-    auto amount = stoi(m[2].str());
+    std::string_view sv_line(m[0].first, m[0].second);
+    std::string_view sv_direction(m[1].first, m[1].second);
+    std::string_view sv_amount(m[2].first, m[2].second);
+
+    int amount;
+    auto result = std::from_chars(sv_amount.data(),
+                                  sv_amount.data() + sv_amount.size(), amount);
+    if (result.ec != std::errc{}) {
+      std::runtime_error(std::format("Failed to parse amount: {}", sv_amount));
+    }
+
     while (amount > 0) {
-      switch (m[1].str()[0]) {
+      switch (sv_direction[0]) {
       case 'L':
         dial--;
         if (dial < 0) {
@@ -139,13 +149,12 @@ unsigned long long solution1(std::ifstream &input) {
         break;
       default:
         throw std::runtime_error(
-            std::format("Invalid input direction: {}", m[1].str()[0]));
+            std::format("Invalid input direction: {}", sv_direction));
       }
       // std::cout << std::format("Dial: {}", dial) << std::endl;
       amount--;
     }
-    std::cout << std::format("Processed: {} Moved dial to: {}", m[0].str(),
-                             dial)
+    std::cout << std::format("Processed: {} Moved dial to: {}", sv_line, dial)
               << std::endl;
 
     if (dial == 0) {
@@ -175,9 +184,19 @@ unsigned long long solution2(std::ifstream &input) {
                              m[2].str())
               << std::endl;
     */
-    auto amount = stoi(m[2].str());
+    std::string_view sv_line(m[0].first, m[0].second);
+    std::string_view sv_direction(m[1].first, m[1].second);
+    std::string_view sv_amount(m[2].first, m[2].second);
+
+    int amount;
+    auto result = std::from_chars(sv_amount.data(),
+                                  sv_amount.data() + sv_amount.size(), amount);
+    if (result.ec != std::errc{}) {
+      std::runtime_error(std::format("Failed to parse amount: {}", sv_amount));
+    }
+
     while (amount > 0) {
-      switch (m[1].str()[0]) {
+      switch (sv_direction[0]) {
       case 'L':
         dial--;
         if (dial < 0) {
@@ -192,7 +211,7 @@ unsigned long long solution2(std::ifstream &input) {
         break;
       default:
         throw std::runtime_error(
-            std::format("Invalid input direction: {}", m[1].str()[0]));
+            std::format("Invalid input direction: {}", sv_direction));
       }
       // std::cout << std::format("Dial: {}", dial) << std::endl;
       if (dial == 0) {
@@ -200,8 +219,7 @@ unsigned long long solution2(std::ifstream &input) {
       }
       amount--;
     }
-    std::cout << std::format("Processed: {} Moved dial to: {}", m[0].str(),
-                             dial)
+    std::cout << std::format("Processed: {} Moved dial to: {}", sv_line, dial)
               << std::endl;
   }
 
